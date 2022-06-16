@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import { Card, CircularProgress} from "@mui/material";
 import { CardStyled} from "./styled";
 
 
@@ -18,15 +18,15 @@ export default function SuggestionCard({ id }) {
     const similar = data.results && data.results.map(movie => {
         return (
            
-            <CardStyled key={movie.id} onClick={() => goToDetails(navigate, movie.id)} sx={{ maxWidth: 200 }} >
-                <CardActionArea>
+            <CardStyled key={movie.id} onClick={() => goToDetails(navigate, movie.id)} sx={{width: 200}} >
+                <Card>
                     <CardMedia
                         component="img"
                         image={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                         alt={`Poster do ${movie.title}`}
-                        sx={{padding: 0.5}}
+                        sx={{ padding: 0.5, height: 290}}
                     />
-                    <CardContent sx={{padding: 0.5}}>
+                    <CardContent >
                         <Typography gutterBottom variant="h2" fontSize={16} component="div">
                             {movie.title}
                         </Typography>
@@ -34,13 +34,13 @@ export default function SuggestionCard({ id }) {
                             {moment.utc(movie.release_date).format('DD MMM YYYY')}
                         </Typography>
                     </CardContent>
-                </CardActionArea>
+                </Card>
             </CardStyled>
            
         )
 })
 
 return (<>
-    {loading ? <p>Carregando...</p> : similar}
+    {loading ? <CircularProgress/> : similar}
 </>)
 }

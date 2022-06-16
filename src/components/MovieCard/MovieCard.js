@@ -21,6 +21,7 @@ export default function MovieCard({ movie }) {
                             component="img"
                             image={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                             alt={`Poster do ${movie.title}`}
+
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="div" sx={{}}>

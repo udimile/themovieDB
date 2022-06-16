@@ -13,8 +13,8 @@ export default function Header() {
   return (
     
       <AppBar onClick={() => navigate(goToHome)} position="static">
-        <Toolbar variant="dense" color="primaryColor" >
-          <Typography variant="h4" component="div" color="text">
+        <Toolbar variant="dense" color="primaryColor" onClick={() => navigate(goToHome)}>
+          <Typography variant="h4" component="div" color="white">
             TMDB
           </Typography>
         </Toolbar>

@@ -7,9 +7,9 @@ import SuggestionCard from './SuggestionCard'
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import { Card, CircularProgress } from "@mui/material";
 import { CardStyled, DetailCardStyled, DetailMovieStyled } from './styled';
-import { ScrollArea } from '@mantine/core';
+import { BackgroundImage, Image, ScrollArea } from '@mantine/core';
 
 export default function DetailCard({ detail, id }) {
     const [data, loading] = useRequestData({}, `${BASE_URL}${id}/credits?${api_key}`)
@@ -23,26 +23,24 @@ export default function DetailCard({ detail, id }) {
             return acting.order <= 9
         }).map(credit => {
             return (
-
                 
-                    <CardStyled key={credit.id} sx={{}} >
-                        <CardActionArea>
+                    <CardStyled key={credit.id} sx={{width: 200}} >
+                        <Card>
                             <CardMedia
                                 component="img"
                                 image={`https://image.tmdb.org/t/p/w200${credit.profile_path}`}
-                                alt={`Foto do ${credit.name}`}
-                                sx={{ padding: 0.5 }}
-
+                                alt={`Foto do artista ${credit.name}`}
+                                sx={{ padding: 0.5, height: 290}}
                             />
                             <CardContent sx={{ padding: 0.5 }}>
                                 <Typography variant="h5" component="div" fontSize={15}>
                                     {credit.name}
                                 </Typography>
-                                <Typography variant="p" component="div" sx={{}}>
+                                <Typography variant="p" component="div">
                                     {credit.character}
                                 </Typography>
                             </CardContent>
-                        </CardActionArea>
+                        </Card>
                     </CardStyled>
             
 
@@ -66,11 +64,11 @@ export default function DetailCard({ detail, id }) {
     return (
         <div>
             {detail &&
-                <DetailMovieStyled key={detail.id}>
-                    <img src={`https://image.tmdb.org/t/p/w400${detail.poster_path}`} alt={`Poster do ${detail.title}`} />
+                <DetailMovieStyled key={detail.id} >
+                    <Image margin={10} src={`https://image.tmdb.org/t/p/w400${detail.poster_path}`} alt={`Poster do ${detail.title}`}  sx={{marginTop: 5,  width: 800, height: 400}}/>
                     <div>
                         <Typography variant='h1' fontSize={24} >{detail.title}</Typography>
-                        <Typography variant='h3' fontSize={14} display={'inline'}>{moment.utc(detail.release_date).format('DD/MM/YYYY')}</Typography>
+                        <Typography variant='h3' fontSize={14} display={'inline'}>{moment.utc(detail.release_date).format('DD MMM YYYY')}</Typography>
                         <Typography variant='h3' fontSize={14} display={'inline'}>{genres}</Typography>
                         <Typography variant='h3' fontSize={14} display={'inline'}> {(detail.runtime / 60).toFixed()}h{detail.runtime % 60}min </Typography>
 
@@ -78,7 +76,7 @@ export default function DetailCard({ detail, id }) {
                         <Typography variant='h2' fontSize={18}>Sinopse</Typography>
                         <Typography variant='h3' fontSize={14}>{detail.overview}</Typography>
 
-                        <div>{loading ? <p> Carregando...</p> : crews}</div>
+                        <div>{loading ? <CircularProgress/>  : crews}</div>
 
                     </div>
 
@@ -86,17 +84,17 @@ export default function DetailCard({ detail, id }) {
                 </DetailMovieStyled>
             }
         <div>
-            <Typography variant='h1' fontSize={19}>Elenco original</Typography>
-            <ScrollArea>
+            <Typography variant='h1' fontSize={19} sx={{mt: 4}}>Elenco original</Typography>
+            <ScrollArea type='auto'>
                 {loading ?
-                    <p> Carregando...</p> : <DetailCardStyled>{cast}</DetailCardStyled>
+                    <CircularProgress/> : <DetailCardStyled>{cast}</DetailCardStyled>
                     }
             </ScrollArea>
         </div>
             
             <div>
-                <Typography variant='h1' fontSize={19}>Recomendações</Typography>
-                <ScrollArea> <DetailCardStyled> <SuggestionCard id={id} /></DetailCardStyled></ScrollArea>
+                <Typography variant='h1' fontSize={19} sx={{mt: 4}}>Recomendações</Typography>
+                <ScrollArea type='auto'> <DetailCardStyled> <SuggestionCard id={id} /></DetailCardStyled></ScrollArea>
             </div>
 
         </div>
