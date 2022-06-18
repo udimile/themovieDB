@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Card, CircularProgress} from "@mui/material";
+import { Card, CircularProgress, Paper} from "@mui/material";
 import { CardStyled} from "./styled";
 
 
@@ -17,14 +17,14 @@ export default function SuggestionCard({ id }) {
 
     const similar = data.results && data.results.map(movie => {
         return (
-           
-            <CardStyled key={movie.id} onClick={() => goToDetails(navigate, movie.id)} sx={{width: 200}} >
+
+            <CardStyled key={movie.id} onClick={() => goToDetails(navigate, movie.id)}>
                 <Card>
                     <CardMedia
                         component="img"
                         image={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                         alt={`Poster do ${movie.title}`}
-                        sx={{ padding: 0.5, height: 290}}
+                        sx={{ padding: 0.5, minWidth: "fitContent", overflow:"auto"}}
                     />
                     <CardContent >
                         <Typography gutterBottom variant="h2" fontSize={16} component="div">
@@ -36,11 +36,11 @@ export default function SuggestionCard({ id }) {
                     </CardContent>
                 </Card>
             </CardStyled>
-           
+
         )
 })
 
 return (<>
-    {loading ? <CircularProgress/> : similar}
+    {loading ? <CircularProgress /> : similar}
 </>)
 }

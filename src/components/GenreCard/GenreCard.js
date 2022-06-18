@@ -1,9 +1,8 @@
 import useRequestData from "../../hooks/useRequestData"
 import { BASE_URL_GENRE } from "../../constants/URL"
 import { api_key } from "../../constants/apiKEY"
-import { Chip } from '@mantine/core';
 import { CardStyled } from "./styled";
-import { CircularProgress } from "@mui/material";
+import { Chip, CircularProgress } from "@mui/material";
 
 
 export default function GenreCard() {

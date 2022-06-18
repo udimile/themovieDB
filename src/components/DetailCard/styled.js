@@ -1,14 +1,15 @@
-import { Card } from "@mui/material";
+import { Card, List, Paper } from "@mui/material";
 import styled from "styled-components";
 
 export const DetailCardStyled = styled.div`
     display: flex;
     flex-direction: row;
+
 `
-export const CardStyled = styled(Card)`
+export const CardStyled = styled(List)`
     display: flex;
     flex-direction: row;
-    margin: 0.2%;
+    overflow-x: auto;
 `
 export const DetailMovieStyled = styled.div`
     display: flex;

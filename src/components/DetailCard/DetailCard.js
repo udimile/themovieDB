@@ -9,7 +9,6 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Card, CircularProgress } from "@mui/material";
 import { CardStyled, DetailCardStyled, DetailMovieStyled } from './styled';
-import { BackgroundImage, Image, ScrollArea } from '@mantine/core';
 
 export default function DetailCard({ detail, id }) {
     const [data, loading] = useRequestData({}, `${BASE_URL}${id}/credits?${api_key}`)
@@ -20,10 +19,10 @@ export default function DetailCard({ detail, id }) {
 
     const cast = data.cast && data.cast.filter(
         acting => {
-            return acting.order <= 9
+            return acting.order <= 10
         }).map(credit => {
             return (
-                
+
                     <CardStyled key={credit.id} sx={{width: 200}} >
                         <Card>
                             <CardMedia
@@ -42,7 +41,7 @@ export default function DetailCard({ detail, id }) {
                             </CardContent>
                         </Card>
                     </CardStyled>
-            
+
 
             )
         })
@@ -65,7 +64,7 @@ export default function DetailCard({ detail, id }) {
         <div>
             {detail &&
                 <DetailMovieStyled key={detail.id} >
-                    <Image margin={10} src={`https://image.tmdb.org/t/p/w400${detail.poster_path}`} alt={`Poster do ${detail.title}`}  sx={{marginTop: 5,  width: 800, height: 400}}/>
+                    <img margin={10} src={`https://image.tmdb.org/t/p/w400${detail.poster_path}`} alt={`Poster do ${detail.title}`}  sx={{marginTop: 5,  width: 800, height: 400}}/>
                     <div>
                         <Typography variant='h1' fontSize={24} >{detail.title}</Typography>
                         <Typography variant='h3' fontSize={14} display={'inline'}>{moment.utc(detail.release_date).format('DD MMM YYYY')}</Typography>
@@ -85,16 +84,18 @@ export default function DetailCard({ detail, id }) {
             }
         <div>
             <Typography variant='h1' fontSize={19} sx={{mt: 4}}>Elenco original</Typography>
-            <ScrollArea type='auto'>
+
                 {loading ?
                     <CircularProgress/> : <DetailCardStyled>{cast}</DetailCardStyled>
                     }
-            </ScrollArea>
+
         </div>
-            
+
             <div>
+
                 <Typography variant='h1' fontSize={19} sx={{mt: 4}}>Recomendações</Typography>
-                <ScrollArea type='auto'> <DetailCardStyled> <SuggestionCard id={id} /></DetailCardStyled></ScrollArea>
+
+                 <DetailCardStyled> <SuggestionCard id={id} /></DetailCardStyled>
             </div>
 
         </div>

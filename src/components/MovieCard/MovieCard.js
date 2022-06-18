@@ -20,11 +20,11 @@ export default function MovieCard({ movie }) {
                         <CardMedia
                             component="img"
                             image={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                            alt={`Poster do ${movie.title}`}
+                            alt={`Poster do filme ${movie.title}`}
 
                         />
                         <CardContent>
-                            <Typography gutterBottom variant="h5" component="div" sx={{}}>
+                            <Typography variant="h1" component="div" fontSize={18} textAlign={'center'} >
                                 {movie.title}
                             </Typography>
                         </CardContent>
